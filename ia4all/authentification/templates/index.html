@@ -8,7 +8,7 @@
 <h1>Bienvenue {{ request.user.username }} !<br/>
     Vous êtes connecté
 </h1>
-<a href="{ url 'deconnexion' }">
+<a href="{% url 'deconnexion' %}">
     <h1>Déconnexion</h1>
 </a>
 </body>

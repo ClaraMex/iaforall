@@ -228,21 +228,24 @@ input.submit {
 <body>
 <h1>Formulaire de connexion</h1>
     <div class="info"><a href="https://www.grandvincent-marion.fr" target="_blank"><p> Made with ❤️ by Patrick </p></a></div>
-
+	<h3 style="color:black">{{ message }}</h3>
 <div class="content">
 	<div class="container">
 		<img class="bg-img" src="https://mariongrandvincent.github.io/HTML-Personal-website/img-codePen/bg.jpg" alt="">
 			<div class="menu">
-				<a href="{% url 'connexion' %}" class="btn-connexion active"><h2>S'inscrire</h2></a>
-				<a href="{% url 'inscription' %}" class="btn-enregistrer"><h2>Se connecter</h2></a>
+				<a href="{% url 'inscription' %}" class="btn-connexion active"><h2>S'inscrire</h2></a>
+				<a href="{% url 'connexion' %}" class="btn-enregistrer"><h2>Se connecter</h2></a>
 			</div>
-			<div class="connexion">
+			<form class="connexion" method="post">
+				{% csrf_token %}
+
+
 				<div class="contact-form">
 					<label>Identifiant</label>
-					<input placeholder="" type="text">
+					<input placeholder="" type="text" name="identifiant" required>
 
 					<label>Mot de passe</label>
-					<input placeholder="" type="text">
+					<input placeholder="" type="password" name="motdepasse" required>
 
 					<div class="check">
 						<label>
@@ -260,7 +263,7 @@ input.submit {
 
 				<hr>
 				<a href="https://www.grandvincent-marion.fr/" target="_blank"><h4>Mot de passe oublié ?</h4></a>
-			</div>
+			</form>
 
 			<div class="enregistrer active-section">
 				<div class="contact-form">
