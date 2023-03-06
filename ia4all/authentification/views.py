@@ -1,9 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
 def inscription(request):
-    return render(request, "inscription.html")
+    message = ""
+    if request.method == "POST":
+        if request.POST["motdepasse1"] == request.POST["motdepasse2"]:
+            modelUtilisaleur = get_user_model()
+            identifiant = request.POST["identifiant"]
+            motdepasse = request.POST["motdepasse1"]
+            utilisateur = modelUtilisaleur.objects.create_user(username=identifiant,
+                                                       password=motdepasse)
+            return redirect("connexion")
+        else:
+            message = "⚠️ Les deux mots de passe ne concordent pas ⚠️"
+    return render(request, "inscription.html", {"message" : message})
 
 def connexion(request):
     # La méthode POSt est utilisé quand des infos
