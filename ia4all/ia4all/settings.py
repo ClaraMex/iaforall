@@ -120,3 +120,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # J'informe le projet que l'authentification se fera
 # via le model Utilisateur de l'application authentification
 AUTH_USER_MODEL = "authentification.Utilisateur"
+# Si une personne veut accéder à une page sans se connecter elle sera
+# renvoyée vers l'url qui a pour name 'connexion'
+LOGIN_URL = 'connexion'

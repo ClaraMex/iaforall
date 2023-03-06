@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from authentification.views import inscription, connexion, deconnexion, index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("inscription", inscription, name="inscription"),
+    path("connexion", connexion, name="connexion"),
+    path("deconnexion", deconnexion, name="deconnexion"),
+    path("index", index, name="index"),
 ]
