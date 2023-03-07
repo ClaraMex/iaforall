@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from authentification.views import inscription, connexion, deconnexion, index
+from authentification.views import inscription, connexion, deconnexion, index, suppression
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -23,4 +23,5 @@ urlpatterns = [
     path("connexion", connexion, name="connexion"),
     path("deconnexion", deconnexion, name="deconnexion"),
     path("index", index, name="index"),
+    path("suppression/<int:id>", suppression, name="suppression"),
 ]

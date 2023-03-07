@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h1>Bienvenue {{ request.user.username }} !<br/>
@@ -12,8 +16,32 @@
     <h1>Déconnexion</h1>
 </a>
 
-<a href="{% url 'suppression' %}">
-    <h1>Supprimer mon compte</h1>
-</a>
+<h1 data-toggle="modal" data-target="#myModal">
+    Supprimer mon compte
+</h1>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Suppression de compte</h4>
+        </div>
+        <div class="modal-body">
+          <p>Es-tu sûr de vouloir supprimer ton compte ?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{% url 'suppression' user.id %}">
+                <button type="button" class="btn btn-danger">Valider</button>
+            </a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>

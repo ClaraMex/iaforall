@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from authentification.models import Utilisateur
 
 def inscription(request):
     message = ""
@@ -42,6 +43,12 @@ def connexion(request):
 
 def deconnexion(request):
     logout(request)
+    return redirect("connexion")
+
+def suppression(request, id):
+    utilisateur = Utilisateur.objects.get(id=id)
+    logout(request)
+    utilisateur.delete()
     return redirect("connexion")
 
 @login_required
