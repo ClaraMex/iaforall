@@ -12,6 +12,8 @@ import numpy as np
 from sklearn.cluster import DBSCAN
 from sklearn import metrics
 import pandas as pd
+from django.shortcuts import render
+from authentification.models import FilesUpload
 
 # Mes graphiques
 fig = go.Figure()
@@ -42,7 +44,7 @@ graph4 = plot(fig4, output_type='div')
 # Clustering
 # DBScan
 
-dfPenguins = pd.read_csv("/Users/narcy/Desktop/Bureau/Simplon/iaouverte/ia4all/authentification/penguins.csv")
+dfPenguins = pd.read_csv("/Users/cbustamante/DjangoIA2023/iaouverte/ia4all/authentification/penguins.csv")
 X = dfPenguins[dfPenguins.describe().columns].dropna().values
 
 X = StandardScaler().fit_transform(X)
@@ -106,6 +108,11 @@ def suppression(request, id):
 
 @login_required
 def index(request):
+    print("usernameICI:",type(request.user.id)) # on verifier le type du champ et l'id pour en être sûrs
+    if request.method == "POST": #estce la personne sur la page (appui le bouton) quqqun a validé le formulaire si oui on fait ça: on recurepre le fichier
+        file = request.FILES["file"] #si oui on rentre dans la condition, et on va recuperer le fichier envoye, cet uinput viens de html et pn l'a nomé file 
+        document = FilesUpload.objects.create(userid=request.user.id, file=file) #on appelle notre table FilesUpload et on créé une ligne 
+        csv = document.save()
     context = {"n_clusters_" : n_clusters_,
                "n_noise_" : n_noise_,
                "graphique": plt_div,
@@ -114,3 +121,15 @@ def index(request):
                "graph4": graph4
                }
     return render(request, "index.html", context)
+
+def models(request):
+    files = FilesUpload.objects.filter(userid=request.user.id)
+
+    if request.method == "POST":
+        selected_file_id = request.POST['file']
+        selected_file = FilesUpload.objects.get(pk=selected_file_id)
+        fichier = selected_file.file
+
+
+
+
